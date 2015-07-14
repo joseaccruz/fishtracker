@@ -35,12 +35,12 @@ mysample                    - Project file
 mysample.raw                - Raw XY positions tracked from the original video.
 mysample.dat                - Scaled XY positions and angles computed from raw data.
 mysample.plt_heat.svg       - XY Position heat map based on the observed data.
-mysample.plt_polar.svg      - Fish orientation polar histgram based on the observed data.
+mysample.plt_polar.svg      - Fish orientation polar histogram based on the observed data.
 ~~~
 
 # Usage
 
-Fish tracker consists of four Python that can be used separatelly to automatically annotate the position and orientation of one fish in pre-saved videos. Here we describe in detail the usage of each of these scripts.
+Fish tracker consists of four Python that can be used separately to automatically annotate the position and orientation of one fish in pre-saved videos. Here we describe in detail the usage of each of these scripts.
 
 ## ftget.py
 
@@ -106,7 +106,7 @@ __IMPORTANT__: The `-s` option dramatically slows down the performance of the sc
 If you want to check the video frame by frame you can set the `-d` option to add a delay of a few `ms` between each frame:
 
 ~~~
-$ python ftget.py -d 500 -s /home/jsilva/videos/sample.mp4 mysample 350x185:265x230 200
+$ python ftget.py -d 500 -s sample.mp4 mysample 350x185:265x230 200
 ~~~
 
 When using the delay option you can press any key to speed up the video again.
