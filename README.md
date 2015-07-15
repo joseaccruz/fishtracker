@@ -12,35 +12,35 @@ Although we only tested `Fish Tracker` in Linux (Ubuntu) these scripts should wo
 
 # Quick Start
 
-To quickly test the scripts download the `Fish Tracker` repository from the <<Github page>> to any directory in you computer. The `sample` directory contains a one minute video for demo purposes only that we'll use in this example:
+To quickly test the scripts download the `Fish Tracker` project from the GitHub web site (`https://github.com/joseaccruz/fishtracker/archive/master.zip`) to any directory in you computer. The `sample` directory contains a one minute video for demo purposes only that we'll use in this example:
 
 1. Go to the sample directories:
 
 ~~~
-$ cd <your directory structure>/fishtracker/sample
+$ cd <your directory structure>/fishtracker
 ~~~
 
 2. Run the `ftget.py`, `getproc.py` and `ftplot.py` scripts:
 
 ~~~
-$ python ftget.py sample.mp4 mysample 350x185:265x230 200
-$ python ftproc.py mysample
-$ python ftplot.py mysample
+$ python ftget.py sample/sample.mp4 sample/myproject 350x185:265x230 200
+$ python ftproc.py sample/myproject
+$ python ftplot.py sample/myproject
 ~~~
 
-After running these three scripts you should find the following files in the same directory:
+After running these three scripts you should find the following files in the `sample` directory:
 
 ~~~
-mysample                    - Project file
-mysample.raw                - Raw XY positions tracked from the original video.
-mysample.dat                - Scaled XY positions and angles computed from raw data.
-mysample.plt_heat.svg       - XY Position heat map based on the observed data.
-mysample.plt_polar.svg      - Fish orientation polar histogram based on the observed data.
+myproject                    - Project file
+myproject.raw                - Raw XY positions tracked from the original video.
+myproject.dat                - Scaled XY positions and angles computed from raw data.
+myproject.plt_heat.svg       - XY Position heat map based on the observed data.
+myproject.plt_polar.svg      - Fish orientation polar histogram based on the observed data.
 ~~~
 
 # Usage
 
-Fish tracker consists of four Python that can be used separately to automatically annotate the position and orientation of one fish in pre-saved videos. Here we describe in detail the usage of each of these scripts.
+Fish tracker consists of four Python scripts that can be used separately to automatically annotate the position and orientation of one fish in a pre-saved high background contrast video. Here we describe in detail the usage of each of these scripts.
 
 ## ftget.py
 
@@ -49,16 +49,16 @@ The `ftget.py`script analyzes a video of a fish in a high contrast setting and e
 To run the script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftget.py sample.mp4 mysample 350x185:265x230 200
+$ python ftget.py sample/sample.mp4 sample/myproject 350x185:265x230 200
 ~~~
 
 The first argument (`sample.mp4`) must be the name (or the full path) of the video file to track. It doesn't need to be in the same directory to work. Something like this is perfectly acceptable:
 
 ~~~
-$ python ftget.py -s /home/jsilva/videos/sample.mp4 mysample 350x185:265x230 200
+$ python ftget.py -s /home/jsilva/videos/sample.mp4 sample/myproject 350x185:265x230 200
 ~~~
 
-The second argument (`mysample`) must be the name (or the full path) of the project file. This file will be created by the script and will be used in the later scripts to prevent typing the same parameters again-and-again.
+The second argument (`sample/myproject`) must be the name (or the full path) of the project file. This file will be created by the script and will be used in the later scripts to prevent typing the same parameters again-and-again.
 
 __WARNING__: Be careful to choose a unique name for your project file. `ftget.py` will overwrite any file with the same name as the project file!
 
@@ -106,7 +106,7 @@ __IMPORTANT__: The `-s` option dramatically slows down the performance of the sc
 If you want to check the video frame by frame you can set the `-d` option to add a delay of a few `ms` between each frame:
 
 ~~~
-$ python ftget.py -d 500 -s sample.mp4 mysample 350x185:265x230 200
+$ python ftget.py -d 500 -s sample/sample.mp4 sample/myproject 350x185:265x230 200
 ~~~
 
 When using the delay option you can press any key to speed up the video again.
@@ -115,12 +115,12 @@ When using the delay option you can press any key to speed up the video again.
 
 The `ftget.py` script generates two files:
 
-- Project file (`mysample` in our example).
-- Raw data file (`mysample.raw` in our example).
+- Project file (`sample/myproject` in our example).
+- Raw data file (`sample/myproject.raw` in our example).
 
-Both files are saved in the same directory.
+Both files are saved in the same directory (`sample` in our example).
 
-The raw data file is a tab separated file containing on line per frame as in this example:
+The raw data file is a tab separated file containing one line per frame as in this example:
 
 ~~~
 0   1   498 306 471 290 436 269
@@ -153,7 +153,7 @@ All XY coordinates are measured in the reference of the video starting from the 
 ## ftproc.py
 
 The `ftproc.py` script performs the following of post-processing steps upon the raw data:
-- Scale the XY coordinates form `px` to `mm`.
+- Scale the XY coordinates.
 - Shifts the coordinates to the top left corner of the ROI. This way, we can adjust the ROI to some physical reference point.
 - Swaps the Y coordinates so the left bottom corner of the ROI will be point (0, 0).
 - Shifts the coordinates for some amount of pixels.
@@ -164,7 +164,7 @@ __IMPORTANT__: Before running `ftproc.py` you need to create a project by runnin
 To run the `ftproc.py` script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftproc.py mysample
+$ python ftproc.py sample/myproject
 ~~~
 
 The only mandatory parameter is the name (or the full path) of the project file.
@@ -180,7 +180,7 @@ The `ftproc.py` script accepts the following options:
 
 ### Output
 
-The `ftget.py` script generates one data file (`mysample.dat` in our example), saved in the same directory as the previous files.
+The `ftproc.py` script generates one data file (`sample/myproject.dat` in our example), saved in the same directory as the previous files.
 
 The data file is a tab separated file containing on line per frame as in this example:
 
@@ -224,7 +224,7 @@ __IMPORTANT__: Before running `ftplot.py` you need to run both `ftget.py` and `f
 To run the `ftplot.py` script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftplot.py mysample
+$ python ftplot.py sample/myproject
 ~~~
 
 The only mandatory parameter is the name (or the full path) of the project file.
@@ -234,15 +234,15 @@ The only mandatory parameter is the name (or the full path) of the project file.
 To display the images generated on the fly just add the `-s` option to the command line:
 
 ~~~
-$ python ftplot.py -s mysample
+$ python ftplot.py -s sample/myproject
 ~~~
 
 ### Output
 
 The `fplot.py` script generates to `SVG` files:
 
-- `mysample.plt_heat.svg`  - XY Position heat map based on the observed data.
-- `mysample.plt_polar.svg` - Fish orientation polar histogram based on the observed data.
+- `myproject.plt_heat.svg`  - XY Position heat map based on the observed data.
+- `myproject.plt_polar.svg` - Fish orientation polar histogram based on the observed data.
 
 The `SVG` format is a convenient vector based format which allow the file to be imported in all major vector editing image programs.
 
@@ -256,7 +256,7 @@ __IMPORTANT__: Before running `ftview.py` you need to run both `ftget.py` and `f
 To run the `ftview.py` script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftview.py mysample
+$ python ftview.py sample/myproject
 ~~~
 
 The only mandatory parameter is the name (or the full path) of the project file.
@@ -268,8 +268,8 @@ The `ftview.py` script accepts the following options:
 - `-d`: Works as the _delay option_ of the `ftget.py` script.
 - `-j`: Jumps to the specified frame.
 
-For example if you want to check the data on the `mysample` project starting from frame 500 with a delay of 250 ms between frames just type:
+For example if you want to check the data on the `myproject` project starting from frame 500 with a delay of 250 ms between frames just type:
 
 ~~~
-$ python ftview.py -d 250 -j 500 mysample
+$ python ftview.py -d 250 -j 500 sample/myproject
 ~~~

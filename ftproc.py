@@ -39,10 +39,10 @@ from ftlib import *
 
 # parse the script's arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("-x", "--xscale", type=float, help="X scale factor (in mm/px)",                     default=1.0)
-parser.add_argument("-y", "--yscale", type=float, help="Y scale factor (in mm/px)",                     default=1.0)
-parser.add_argument("-H", "--hshift", type=float, help="Horizontal shift (in mm)",                      default=0.0)
-parser.add_argument("-V", "--vshift", type=float, help="Vertical shift (in mm)",                        default=0.0)
+parser.add_argument("-x", "--xscale", type=float, help="X scale factor",                   default=1.0)
+parser.add_argument("-y", "--yscale", type=float, help="Y scale factor",                   default=1.0)
+parser.add_argument("-H", "--hshift", type=float, help="Horizontal shift (after scaling)", default=0.0)
+parser.add_argument("-V", "--vshift", type=float, help="Vertical shift (after scaling)",   default=0.0)
 parser.add_argument("prj",            type=str,   help="project file.")
 args = parser.parse_args()
 
