@@ -271,5 +271,13 @@ The `ftview.py` script accepts the following options:
 For example if you want to check the data on the `myproject` project starting from frame 500 with a delay of 250 ms between frames just type:
 
 ~~~
-$ python ftview.py -d 250 -j 500 sample/myproject
+$ python ftview.py -d 250 -j 500 sample/myproject 
+
 ~~~
+
+## Image Enhance 
+  This is a collection of matlab codes.Based on the fusion principles, the strategy derives the inputs and the weight measures only from the degraded version of an image. In order to better the results of fish recognition algorithms under medium to mediocre quality due to underwater limitations.
+  
+  
+ FOR NOW ONLY COLOR BALANCE + WHITE BALANCE  CODES ARE AVAILABLE (can be useful on there own) UNDERDEVELOPMENT A CODE FOLLOWING THIS COURSE http://edu.epfl.ch/coursebook/en/image-and-video-processing-EE-550  
+  
