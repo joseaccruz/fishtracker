@@ -6,26 +6,40 @@ Fish tracker is a set of Python scripts used to automatically annotate the posit
 
 Although we only tested `Fish Tracker` in Linux (Ubuntu) these scripts should work on any system that provides the following requirements:
 
-- Python 2.7
+- Python 3.7
 - Numpy and Matplotlib (`http://www.numpy.org/`)
-- Open CV 2.4.7 for Python (`http://opencv.org/`)
+- OpenCV 4.2.0.34 for Python (`http://opencv.org/`)
 
 # Quick Start
 
-To quickly test the scripts download the `Fish Tracker` project from the GitHub web site (`https://github.com/joseaccruz/fishtracker/archive/master.zip`) to any directory in you computer. The `sample` directory contains a one minute video for demo purposes only that we'll use in this example:
+To quickly test the scripts follow those steps:
 
-1. Go to the sample directories:
 
-~~~
-$ cd <your directory structure>/fishtracker
-~~~
+0. Prepare your Python virtual environment:
 
-2. Run the `ftget.py`, `getproc.py` and `ftplot.py` scripts:
+*If you have a configured python environment with all the requirements you can skip this step*
 
 ~~~
-$ python ftget.py sample/sample.mp4 sample/myproject 350x185:265x230 200
-$ python ftproc.py sample/myproject
-$ python ftplot.py sample/myproject
+$ python3.7 -m venv .venv
+$ source .venv/bin/activate
+(.venv)$ pip install opencv-contrib-python==4.2.0.34
+(.venv)$ pip install matplotlib
+~~~
+
+1. Clone the `Fish Tracker` project from the GitHub and change to that directory:
+
+~~~
+(.venv)$ cd <your directory structure>
+(.venv)$ git clone https://github.com/joseaccruz/fishtracker.git
+(.venv)$ cd fishtracker
+~~~
+
+2. Run the `ftget.py`, `getproc.py` and `ftplot.py` scripts (the `sample` directory contains a one minute video for demo purposes only that we'll use in this example):
+
+~~~
+(.venv)$ python ftget.py sample/sample.mp4 sample/myproject 350x185:265x230 200
+(.venv)$ python ftproc.py sample/myproject
+(.venv)$ python ftplot.py sample/myproject
 ~~~
 
 After running these three scripts you should find the following files in the `sample` directory:
@@ -38,6 +52,7 @@ myproject.plt_heat.svg       - XY Position heat map based on the observed data.
 myproject.plt_polar.svg      - Fish orientation polar histogram based on the observed data.
 ~~~
 
+
 # Usage
 
 Fish tracker consists of four Python scripts that can be used separately to automatically annotate the position and orientation of one fish in a pre-saved high background contrast video. Here we describe in detail the usage of each of these scripts.
@@ -49,13 +64,13 @@ The `ftget.py`script analyzes a video of a fish in a high contrast setting and e
 To run the script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftget.py sample/sample.mp4 sample/myproject 350x185:265x230 200
+(.venv)$ python ftget.py sample/sample.mp4 sample/myproject 350x185:265x230 200
 ~~~
 
 The first argument (`sample.mp4`) must be the name (or the full path) of the video file to track. It doesn't need to be in the same directory to work. Something like this is perfectly acceptable:
 
 ~~~
-$ python ftget.py -s /home/jsilva/videos/sample.mp4 sample/myproject 350x185:265x230 200
+(.venv)$ python ftget.py -s /home/jsilva/videos/sample.mp4 sample/myproject 350x185:265x230 200
 ~~~
 
 The second argument (`sample/myproject`) must be the name (or the full path) of the project file. This file will be created by the script and will be used in the later scripts to prevent typing the same parameters again-and-again.
@@ -106,7 +121,7 @@ __IMPORTANT__: The `-s` option dramatically slows down the performance of the sc
 If you want to check the video frame by frame you can set the `-d` option to add a delay of a few `ms` between each frame:
 
 ~~~
-$ python ftget.py -d 500 -s sample/sample.mp4 sample/myproject 350x185:265x230 200
+(.venv)$ python ftget.py -d 500 -s sample/sample.mp4 sample/myproject 350x185:265x230 200
 ~~~
 
 When using the delay option you can press any key to speed up the video again.
@@ -224,7 +239,7 @@ __IMPORTANT__: Before running `ftplot.py` you need to run both `ftget.py` and `f
 To run the `ftplot.py` script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftplot.py sample/myproject
+(.venv)$ python ftplot.py sample/myproject
 ~~~
 
 The only mandatory parameter is the name (or the full path) of the project file.
@@ -234,7 +249,7 @@ The only mandatory parameter is the name (or the full path) of the project file.
 To display the images generated on the fly just add the `-s` option to the command line:
 
 ~~~
-$ python ftplot.py -s sample/myproject
+(.venv)$ python ftplot.py -s sample/myproject
 ~~~
 
 ### Output
@@ -256,7 +271,7 @@ __IMPORTANT__: Before running `ftview.py` you need to run both `ftget.py` and `f
 To run the `ftview.py` script go to the `Fish Tracker` directory and type:
 
 ~~~
-$ python ftview.py sample/myproject
+(.venv)$ python ftview.py sample/myproject
 ~~~
 
 The only mandatory parameter is the name (or the full path) of the project file.
@@ -271,5 +286,5 @@ The `ftview.py` script accepts the following options:
 For example if you want to check the data on the `myproject` project starting from frame 500 with a delay of 250 ms between frames just type:
 
 ~~~
-$ python ftview.py -d 250 -j 500 sample/myproject
+(.venv)$ python ftview.py -d 250 -j 500 sample/myproject
 ~~~

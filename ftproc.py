@@ -83,8 +83,8 @@ for (i, (row, theta)) in enumerate(zip(raw, thetas)):
         # if the row has no data fill up with zeros
         fdat.write("%d\t0\t0\t0\t0\t0\t0\t0\t0\n" % row[0])
     else:
-        row1 = map(lambda x: "%d" % int(x), row[:2])
-        row2 = map(lambda x: "%5.2f" % x, row[2:])
+        row1 = list(map(lambda x: "%d" % int(x), row[:2]))
+        row2 = list(map(lambda x: "%5.2f" % x, row[2:]))
         fdat.write("%s\t%5.2f\n" % ("\t".join(row1 + row2), theta))
 fdat.close()
 

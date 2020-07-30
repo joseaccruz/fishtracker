@@ -144,12 +144,12 @@ def parse_mask(mask):
         sys.stderr.write("Invalid mask: '%s'\n" % mask)
         quit()
 
-    return map(int, m.groups())
+    return list(map(int, m.groups()))
 
 
 def read_data(fname):
     try:
-        ret = np.array(map(lambda s: map(float, s.split("\t")), open(fname).read().strip().split("\n")))
+        ret = np.array(list(map(lambda s: list(map(float, s.split("\t"))), open(fname).read().strip().split("\n"))))
     except IOError:
         sys.stderr.write("ERROR: File not found '%s'." % fname)
         sys.exit(1)

@@ -91,14 +91,14 @@ while f < len(raw):
     #    if f - i <= 0:
     #        break
     #
-    #    praw = map(int, data_raw[f - i])
+    #    praw = list(map(int, data_raw[f - i]))
 
     if(f == 1):
         sys.stderr.write("\nPress 'Q' or 'q' to terminate.\n")
 
     if(int(draw[1]) == 1):
-        draw = map(int,   draw)
-        ddat = map(float, ddat)
+        draw = list(map(int,   draw))
+        ddat = list(map(float, ddat))
 
         # compute theta
         cv2.circle(frame, tuple(draw[2:4]), 3, (0, 0, 255), -1)

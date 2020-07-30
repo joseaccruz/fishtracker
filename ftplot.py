@@ -64,6 +64,7 @@ def polar(data, show, fname):
     theta_hist = np.zeros(361)
 
     for a in angs:
+        a = int(a)
         if(a < 0):
             a = 360 + a
         theta_hist[a] += 1
@@ -86,9 +87,11 @@ def surface(xs, ys):
 
     img_size = max(xsize, ysize) + 1  # we want the surface to be square (!!)
 
-    img = np.zeros((img_size, img_size), dtype=np.float64)
+    img = np.zeros((int(img_size), int(img_size)), dtype=np.float64)
 
     for (x, y) in zip(xs, ys):
+        x, y = int(x), int(y)
+
         if(WND_SIZE > 0):
             img[y - WND_SIZE:y + WND_SIZE, x - WND_SIZE:x + WND_SIZE] += WND_WEIGHT
         else:
@@ -159,7 +162,7 @@ dat = read_data(prj.get_dat_fname())
 
 count_rows = float(len(dat))
 
-dat = np.array(filter(lambda d: d[1] == 1, dat), dtype=np.float64)
+dat = np.array(list(filter(lambda d: d[1] == 1, dat)), dtype=np.float64)
 count_valid = float(len(dat))
 
 sys.stdout.write("Total rows in file: %d.\n" % count_rows)

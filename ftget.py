@@ -50,13 +50,13 @@ args = parser.parse_args()
 
 # open the video file
 capture = cv2.VideoCapture(args.video)
-frame_height = capture.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT)
-frame_width  = capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH)
-frame_count  = capture.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
+frame_height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
+frame_width  = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
+frame_count  = capture.get(cv2.CAP_PROP_FRAME_COUNT)
 
 # create the square mask
 (mx, my, mw, mh) = parse_mask(args.mask)
-mask = np.uint8(np.zeros((frame_height, frame_width)))
+mask = np.uint8(np.zeros((int(frame_height), int(frame_width))))
 mask[my:my + mh, mx:mx + mw] = 255
 
 # create the project file
@@ -98,7 +98,7 @@ while True:
     lum_bin = np.bitwise_and(lum_bin, mask)
 
     if args.show:
-        cv2.imshow("Tracking Binary", lum_bin)
+        cv2.imshow("binary", lum_bin)
 
     (blobs, dummy) = cv2.findContours(lum_bin, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
     blobs = sorted(blobs, key=lambda x: -len(x))
@@ -115,10 +115,10 @@ while True:
         moments = cv2.moments(small_mask)
         centroid = (int(moments['m10'] / moments['m00']), int(moments['m01'] / moments['m00']))
 
-        dists = map(lambda p: lindist(p[0], centroid), blob)
+        dists = list(map(lambda p: lindist(p[0], centroid), blob))
         tail = tuple(blob[dists.index(max(dists))][0])
 
-        dists = map(lambda p: lindist(p[0], tail), blob)
+        dists = list(map(lambda p: lindist(p[0], tail), blob))
         head = tuple(blob[dists.index(max(dists))][0])
 
         # doesn't consider when the fish touches the limits
@@ -158,7 +158,7 @@ while True:
     fraw.flush()
 
     if args.show:
-        cv2.imshow("Tracking Video", frame)
+        cv2.imshow("video", frame)
         key = cv2.waitKey(args.delay)
 
         if key > 0:
